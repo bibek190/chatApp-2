@@ -17,8 +17,8 @@ export const signup = async (req, res) => {
       return res.status(400).json({ error: "User already exists" });
     }
     // Hash Password
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcrypt(password.salt);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Hash Password
 
@@ -33,8 +33,8 @@ export const signup = async (req, res) => {
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
     if (newUser) {
-      generateTokenAndSetSession(newUser._id, res);
       await newUser.save();
+      generateTokenAndSetSession(newUser._id, res);
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
@@ -62,7 +62,7 @@ export const login = async (req, res) => {
     if (!user || !isPasswordCorrect) {
       return res
         .status(400)
-        .json({ messsage: "Incorrect Usernanme or Password" });
+        .json({ message: "Incorrect Usernanme or Password" });
     }
     generateTokenAndSetSession(user._id, res);
     res.status(201).json({
