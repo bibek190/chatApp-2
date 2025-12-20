@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import User from "../models/user.model.js";
 
-export const protect = asyncHandler(async (req, res, next) => {
+const protectRoute = asyncHandler(async (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -22,3 +22,4 @@ export const protect = asyncHandler(async (req, res, next) => {
   req.user = user;
   next();
 });
+export default protectRoute;

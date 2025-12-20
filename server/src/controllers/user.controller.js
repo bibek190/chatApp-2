@@ -23,7 +23,7 @@ export const register = asyncHandler(async (req, res) => {
   const boyProfilePics =
     "https://avatar.iran.liara.run/public/boy?username=boy";
   const girlProfilePics =
-    "https://avatar.iran.liara.run/public/girl?username= girl ";
+    "https://avatar.iran.liara.run/public/girl?username=girl";
 
   const newUser = new User({
     userName,
@@ -38,7 +38,7 @@ export const register = asyncHandler(async (req, res) => {
   await generateTokenAndSetCookie(newUser._id, res);
 
   res.status(201).json({
-    message: "User registered succesfully",
+    message: "User registered successfully",
     user: {
       id: newUser._id,
       name: newUser.userName,
@@ -76,4 +76,9 @@ export const login = asyncHandler(async (req, res) => {
       email: user.email,
     },
   });
+});
+
+export const logout = asyncHandler(async (req, res) => {
+  res.cookie("token", "", { maxAge: 0 });
+  res.status(200).json("Logout successfully");
 });
