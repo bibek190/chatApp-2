@@ -15,8 +15,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/api/v1/user", userRoute);
-app.use("/api/v1/message", messageRoute);
+app.use("/api/auth", userRoute);
+app.use("/api/messages", messageRoute);
 
 // handle errors
 app.use(errorHandler);
