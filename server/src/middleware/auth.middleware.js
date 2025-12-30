@@ -11,10 +11,6 @@ const protectRoute = asyncHandler(async (req, res, next) => {
   }
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  if (!decoded) {
-    res.status(500);
-    throw new Error("Unauthorized - Invalid Token");
-  }
 
   const user = await User.findById(decoded.userId).select("-password");
 
