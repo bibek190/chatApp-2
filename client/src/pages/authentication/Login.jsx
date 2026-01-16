@@ -1,13 +1,7 @@
-import React from "react";
-import { FaUser } from "react-icons/fa";
-import { FaKey } from "react-icons/fa6";
-import { MdEmail } from "react-icons/md";
-import Signup from "./Signup";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/slice/user/user.slice";
-import { loginUserThunk } from "../../store/slice/user/user.thunk";
+import React, { useState } from "react";
+import { FaUserAlt } from "react-icons/fa";
+import { FaKey } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -15,57 +9,58 @@ const Login = () => {
     password: "",
   });
 
-  // redux
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
-  console.log(isAuthenticated);
-
-  const handleInput = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginData);
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center items-center pb-20">
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-[30rem] w-full flex gap-5 flex-col bg-base-300 p-6 rounded-lg"
-      >
-        <h2 className="text-2xl text-center">Login</h2>
-        <label className="input input-bordered flex items-center gap-2 w-full">
-          <FaUser />
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            autoComplete="username"
-            onChange={handleInput}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2 w-full">
-          <FaKey />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autoComplete="current-password"
-            onChange={handleInput}
-          />
-        </label>
-        <button className="btn btn-active btn-primary" type="submit">
-          Login
-        </button>
-        <p>
-          Don't have an account ?{" "}
-          <Link to="/signup" className="text-blue-400">
-            Signup
-          </Link>{" "}
-        </p>
+    <div className="h-screen w-full flex justify-center items-center">
+      <form action="" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-4 p-20 w-lg bg-[rgba(0,0,0,0.1)] rounded-sm -translate-y-20 transform">
+          <h1 className="text-center text-xl">Login</h1>
+          <label className="input validator w-full">
+            <FaUserAlt />
+            <input
+              type="text"
+              required
+              className="grow"
+              placeholder="Username"
+              name="username"
+              autoComplete="username"
+              onChange={handleInputChange}
+            />
+          </label>
+          <label className="input validator w-full">
+            <FaKey />
+            <input
+              type="password"
+              required
+              className="grow"
+              placeholder="Password"
+              name="password"
+              autoComplete="current-password"
+              onChange={handleInputChange}
+            />
+          </label>
+          <div>
+            <button className="btn btn-primary w-full" type="submit">
+              Login
+            </button>
+          </div>
+          <div>
+            <p className="text-sm">
+              Don't have an account ?{" "}
+              <NavLink className="underline text-blue-500" to={"/signup"}>
+                Signup
+              </NavLink>{" "}
+            </p>
+          </div>
+        </div>
       </form>
     </div>
   );

@@ -1,4 +1,6 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersdark, night;
+@plugin "daisyui";
+
+body {
+  background-color: rgba(130, 126, 126, 0.1);
 }
